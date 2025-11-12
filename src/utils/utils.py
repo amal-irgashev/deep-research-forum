@@ -23,7 +23,7 @@ def merge_str_dict(existing: Dict[str, str] | None, new: Dict[str, str] | None) 
     """Merge string dictionaries (new overwrites existing keys).
     
     Used for: subagent_threads (dimension → thread_id mapping)
-    Example: {"dim_a": "tid_1"} + {"dim_b": "tid_2"} → {"dim_a": "tid_1", "dim_b": "tid_2"}
+    Example: {"dim_a": "tid_1"} + {"dim_a": "tid_2", "dim_b": "tid_3"} → {"dim_a": "tid_2", "dim_b": "tid_3"}
     """
     merged = dict(existing or {})
     merged.update(new or {})

@@ -19,7 +19,6 @@ research_agent_graph = create_agent(
     tools=[web_search],
     system_prompt=_BASE_RESEARCH_PROMPT,
     middleware=[filesystem_mw],
-    recursion_limit=12,
 )
 
 __all__ = ["research_agent_graph"]
