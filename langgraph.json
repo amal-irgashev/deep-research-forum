@@ -1,0 +1,9 @@
+{
+    "dependencies": ["."],
+    "graphs": {
+      "deep_researcher": {
+        "path": "src.supervisor.graph:graph"
+      }
+    },
+    "env": ".env"
+  }

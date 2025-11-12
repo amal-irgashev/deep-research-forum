@@ -1,0 +1,20 @@
+.env
+__pycache__
+.pycache/
+.ipynb_checkpoints
+.langgraph_api/
+build/
+dist/
+deep_researcher_agent.egg-info/
+*.pyc
+.venv/
+uv.lock
+.DS_Store
+
+# Research outputs and test files
+research_forum/
+state.txt
+report_*.md
+abort_run.py
+raw_search_result.txt
+detailed_search_result.json
