@@ -88,16 +88,27 @@ ResearchAssignment(
 - **Update `forum_index.json`** with evidence quality notes
 - Assess each dimension's findings against quality criteria
 
-**In forum_index.json** (your working notes):
+**In forum_index.json** (your working notes—write FOR YOURSELF, capture excitement/tensions):
 ```json
 {{
-  "dimension_key": {{
-    "round_1": "Finding summary. Source types: [vendor/independent/academic]. Gaps: [X]. Disconfirming evidence: [Y/none found].",
-    "quality": "ready|needs_depth|needs_counterexamples",
-    "confidence": "high|medium|low"
+  "vendor-claims": {{
+    "round_1": "Found 5 enterprise case studies, all claiming 60-80% faster deployment. Sources: vendor blogs + 2 independent analysts. Missing: failure cases, post-deployment reality checks.",
+    "round_2": "Got 3 analyst reports with deployment metrics. Still no failure cases found—suspicious absence.",
+    "tensions": "Promising numbers, but where are the failures? Practitioner-reality found abandonments—need to connect these.",
+    "quality": "needs_counterexamples",
+    "next": "Bridge vendor success stories to practitioner abandonment accounts"
+  }},
+  "practitioner-reality": {{
+    "round_1": "Reddit/HN full of 'tried X, abandoned after 6mo' stories. Maintenance burden, breaking changes, hidden complexity. Sources: dev blogs, GH issues.",
+    "round_2": "Found specific migration-away stories. Same companies vendor-claims called successes! Timeline: initial win → 12mo later, revert.",
+    "tensions": "GOLDMINE: Same companies in vendor wins AND practitioner complaints. What happened in that 12 months?",
+    "quality": "ready—has the counternarrative",
+    "next": "Cross-ref with enterprise-scale on what breaks at 12mo mark"
   }}
 }}
 ```
+
+**Write naturally—this is YOUR thinking space, not formal output.**
 
 **Quality Assessment Criteria** (for EACH dimension):
 
@@ -115,16 +126,31 @@ ResearchAssignment(
 - Outdated sources for time-sensitive topics
 - Quantitative claims without methodology, sample size, or variance
 
-**When refining, be specific about evidence gaps**:
+**CRITICAL: Refinement = Forum Facilitation**
 
-**Bad**: "Dig deeper."
+You're the **moderator** connecting perspectives. Read ALL findings before refining. Your job: spot tensions, cross-reference discoveries, generate synthesis questions.
 
-**Good**: "You found 3 vendor case studies showing success. Now find: (1) independent post-mortems or academic evaluations, (2) at least 2 cases where this approach failed or was abandoned, (3) quantitative data with sample sizes and confidence intervals if available. If evidence doesn't exist, document that gap explicitly."
+**Refinement prompt structure**:
+1. **What other agents found** (the hook)
+2. **The tension/gap this creates** (why it matters to your lens)
+3. **Specific search targets** (what to find)
+4. **How to connect** (guide synthesis)
 
-**Cross-dimension synthesis**:
-- Look for contradictions between dimensions—these are gold for understanding nuance
-- If one dimension shows "X is widely adopted" and another shows "teams abandon X," investigate the conditions explaining both
-- Use findings from one dimension to generate targeted questions for another
+**Bad refinement** (isolated task):
+> "Dig deeper on enterprise adoption patterns."
+
+**Good refinement** (forum facilitation):
+> "The vendor-claims dimension found enterprise migration stories claiming 80% faster deployment. But the practitioner-reality dimension found Reddit/HN threads showing teams abandoning after 6-12 months due to maintenance burden. 
+>
+> Your lens (enterprise-scale): Find the middle ground. Search for: (1) Enterprise case studies with 12+ month retrospectives—what worked, what broke at scale? (2) Specific companies named in BOTH success stories AND abandonment accounts—what changed? (3) Team size/expertise differences between successful vs failed deployments. 
+>
+> Connect vendor promises to practitioner complaints: is the disconnect about scale, expertise, or vendor overselling?"
+
+**Key patterns**:
+- **Cite other dimensions by name**: "vendor-claims found X, but practitioner-reality found Y"
+- **Frame as tensions**: "X claims success, Y reports failures—find the conditions explaining both"
+- **Generate bridge questions**: "Same companies appearing in both narratives—what changed?"
+- **Guide synthesis**: "Connect promises to complaints," "Find what makes X true for some but not others"
 
 **Launch new dimensions if**:
 - Major evidence gap emerges (e.g., missing entire stakeholder perspective)
