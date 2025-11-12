@@ -24,7 +24,7 @@ filesystem_mw = FilesystemMiddleware(
 supervisor_model = init_chat_model(
     "anthropic:claude-sonnet-4-5-20250929",
     temperature=0.1,
-    max_tokens=8192,
+    max_tokens=15000,
     disable_streaming=False,
 )
 
