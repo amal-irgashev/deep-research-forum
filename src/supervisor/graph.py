@@ -3,7 +3,6 @@
 from datetime import datetime, timezone
 from langchain.agents import create_agent
 from langchain.agents.middleware import dynamic_prompt, ModelRequest
-from langgraph.types import RetryPolicy
 from typing import Dict, Any
 from typing_extensions import Annotated, NotRequired
 from langchain.agents import AgentState
@@ -65,15 +64,9 @@ agent = create_agent(
     ],
     state_schema=SupervisorAgentState,
     middleware=[
-        supervisor_progress_prompt,  #inject subagent statuses into system prompt
+        supervisor_progress_prompt,  # inject subagent statuses into system prompt
         filesystem_mw,  # file operations
     ],
-    retry_policy=RetryPolicy(
-        max_attempts=5,  # Retry up to 5 times
-        backoff_factor=2.0,  # Exponential backoff: 2s, 4s, 8s, 16s, 32s
-        max_interval=60.0,  # Cap at 60 seconds
-        jitter=True,  # Add randomness
-    ),
 )
 
 graph = agent
