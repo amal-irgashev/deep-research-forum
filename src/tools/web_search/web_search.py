@@ -45,7 +45,7 @@ def web_search(query: str, max_results: int = 3) -> str:
     response = client.search_and_contents(
         query=query,
         num_results=max_results,
-        text={"max_characters": 8000}, 
+        text={"max_characters": 5000}, 
         type="auto",
     )
     if not response.results:

@@ -36,12 +36,22 @@ uv sync
 cp .env.example .env
 ```
 
+Get API keys:
+- **Anthropic** (Claude): https://console.anthropic.com/
+- **OpenAI** (GPT): https://platform.openai.com/api-keys
+- **Exa** (Search): https://dashboard.exa.ai/api-keys
+
 **5. Run the agent**
 ```bash
 uv run langgraph dev
 ```
 
 Open LangGraph Studio: https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:2024
+
+**Note**: It's recommended to clean up the `research_forum/` folder between research sessions to avoid workspace conflicts:
+```bash
+rm -rf research_forum/session-*
+```
 
 ---
 
