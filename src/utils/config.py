@@ -43,4 +43,5 @@ web_search_summarization_model = init_chat_model(
     reasoning_effort="low",
     temperature=0.1,
     disable_streaming=True,
+    timeout=30,
 )
