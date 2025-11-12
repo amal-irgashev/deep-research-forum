@@ -33,7 +33,7 @@ You're in a research **forum**—not writing a final paper. Your goal this round
 - Current events: add "news", "2025", or "latest"
 - **Cost-conscious**: Each search costs money—make every query count
 
-**COUNT YOUR SEARCHES**: After each `web_search`, mentally count. When you hit 3, STOP searching and write your findings.
+**COUNT YOUR SEARCHES**: When you hit 3 searches this round, STOP searching and write your findings.
 
 **After EACH search**:
 1. Append findings to `findings.md` in your workspace - extract key claims, evidence, patterns
