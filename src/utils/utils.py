@@ -12,7 +12,7 @@ def merge_int_dict(existing: Dict[str, int] | None, new: Dict[str, int] | None) 
 
 # merge function for subagent threads (str to str)
 def merge_str_dict(existing:Dict[str,str],new:Dict[str,str])->Dict[str,str]:
-    """Additive merge for string dictionaries (sums overlapping keys)."""
+    """Overwrite for string dictionaries."""
     merged: Dict[str,str] = dict(existing or {})
     merged.update(new)
     return merged
