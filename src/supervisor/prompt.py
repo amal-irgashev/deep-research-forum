@@ -157,7 +157,7 @@ Write as **clear, confident synthesis** that states:
 - Key uncertainties or evidence gaps flagged upfront
 - The main trade-off or decision framework that emerged
 
-Example: "There is no single 'best' framework—evidence reveals a fragmented landscape where choice depends critically on use case and lifecycle stage (high confidence). However, a clear migration pattern emerged: teams prototype with high-level frameworks but frequently migrate to simpler alternatives for production stability (medium confidence, based on practitioner accounts but limited longitudinal data). The dominant trade-off is integration speed versus long-term maintainability."
+Example: "There is no single 'best' solution—evidence reveals a fragmented landscape where choice depends critically on use case and lifecycle stage (high confidence). However, a clear pattern emerged: early adopters report initial success with rapid deployment, but face challenges with scalability and maintenance at production scale (medium confidence, based on practitioner accounts but limited longitudinal data). The dominant trade-off is implementation speed versus long-term operational costs."
 
 **II. Methodology** (1-2 paragraphs, may include brief structured elements)
 
@@ -185,8 +185,8 @@ Write as **flowing prose with embedded evidence**, NOT bullet lists or dry enume
 - Bullets are permitted ONLY for: methodology checklists, source lists, and recommendation matrices—NOT for presenting findings
 
 **Evidence integration**:
-- Embed source types naturally in prose: "According to a vendor case study, Vodafone deployed..." [1] vs "An independent benchmark found..." [9] vs "Multiple practitioner accounts report..." [3][4][5]
-- Flag conflicts of interest in-text: "LangChain's blog reports 600 hours saved daily [vendor source], while..."
+- Embed source types naturally in prose: "According to a vendor case study, Company X deployed..." [1] vs "An independent benchmark found..." [9] vs "Multiple practitioner accounts report..." [3][4][5]
+- Flag conflicts of interest in-text: "The vendor's blog reports 600 hours saved daily [vendor source], while..."
 - Weight evidence transparently: "Only one independent benchmark was found, limiting confidence in..."
 
 **Evidence hierarchy** (apply through prose, not structure):
@@ -201,13 +201,13 @@ Write as **flowing prose with embedded evidence**, NOT bullet lists or dry enume
 - No evidence → "No independent evidence was found for [claim], a significant gap because..."
 
 **Quantitative claims** (integrate into prose):
-- Embed methodology naturally: "A controlled benchmark testing 100 queries across five frameworks using standardized components (GPT-4.1-mini, BGE-small embeddings, Qdrant retriever) found that LlamaIndex averaged 1.60k tokens versus LangChain's 2.40k—a 50% overhead difference [9]."
-- Include caveats: "This benchmark tested RAG retrieval tasks; results may not generalize to multi-agent workflows or conversational systems."
-- Note variance when available: "Token usage ranged from 1.57k to 2.40k across frameworks (±0.05k variance)."
+- Embed methodology naturally: "A controlled benchmark testing 100 queries across five solutions using standardized components found that Solution A averaged 1.60k tokens versus Solution B's 2.40k—a 50% overhead difference [9]."
+- Include caveats: "This benchmark tested specific retrieval tasks; results may not generalize to other workflow types or system architectures."
+- Note variance when available: "Performance metrics ranged from 1.57k to 2.40k across solutions (±0.05k variance)."
 
 **Present contradictions as narrative tension**:
 - Don't artificially resolve contradictions—surface them as evidence patterns
-- "This creates a paradox: LangChain dominates vendor-published case studies [1][2], yet independent practitioner accounts consistently report abandonment after 12-18 months [3][4][5]. The pattern suggests [interpretation]."
+- "This creates a paradox: Solution X dominates vendor-published case studies [1][2], yet independent practitioner accounts consistently report migration away after 12-18 months [3][4][5]. The pattern suggests [interpretation]."
 - "Vendor case studies emphasize rapid deployment success, while migration stories highlight long-term maintenance costs. Both are true—for different lifecycle stages."
 
 **Prose quality markers**:
@@ -228,7 +228,7 @@ Write as **flowing prose with embedded evidence**, NOT bullet lists or dry enume
 Write as **actionable guidance** mapped to decision contexts:
 
 **Prose format** (preferred for complex trade-offs):
-"For teams prioritizing rapid prototyping, evidence strongly supports starting with LangChain/LangGraph due to rich integrations and extensive examples (high confidence). However, plan migration strategy before production deployment, as independent accounts consistently report maintenance costs becoming unsustainable after 12-18 months [3][4][5]. For RAG-heavy applications, LlamaIndex offers 50% lower token footprint (high confidence), translating to significant cost savings at scale [9]."
+"For teams prioritizing rapid prototyping, evidence strongly supports starting with higher-level frameworks due to rich integrations and extensive examples (high confidence). However, plan migration strategy before production deployment, as independent accounts consistently report maintenance costs becoming unsustainable after 12-18 months [3][4][5]. For specific use cases requiring efficiency, lower-level solutions offer 50% lower resource footprint (high confidence), translating to significant cost savings at scale [9]."
 
 **Matrix format** (acceptable for clear categorical choices):
 Only use bulleted matrices when presenting 4+ distinct decision contexts that would be clearer as a scannable list. Each bullet should still be a complete sentence with confidence level and caveats, not a fragment.
@@ -242,12 +242,12 @@ Only use bulleted matrices when presenting 4+ distinct decision contexts that wo
 
 Write as **honest assessment** of what you do and don't know:
 
-"This research carries several important limitations. First, source imbalance: LangChain's extensive vendor-published case studies contrast sharply with limited public production stories for alternatives, creating potential selection bias toward LangChain's strengths and other frameworks' weaknesses. Second, temporal constraints: rapid framework evolution (AutoGen's event-bus redesign, LangChain's ongoing refactoring) means current findings may become outdated within 6-12 months. Third, quantitative gaps: only one independent benchmark was found [9]; replication across diverse tasks (multi-agent workflows, conversational systems) is needed to confirm token efficiency patterns."
+"This research carries several important limitations. First, source imbalance: dominant vendors' extensive case study publications contrast sharply with limited public production stories for alternative solutions, creating potential selection bias toward established solutions' strengths and alternatives' weaknesses. Second, temporal constraints: rapid technology evolution and ongoing architectural changes mean current findings may become outdated within 6-12 months. Third, quantitative gaps: only one independent benchmark was found [9]; replication across diverse tasks and system architectures is needed to confirm performance patterns."
 
 "Additionally, several critical questions remain unanswered: [list 3-5 key evidence gaps]. These gaps limit confidence in [specific claims] and suggest areas for future investigation."
 
 **Show evidence quality explicitly**:
-"Confidence is high for developer experience pain points (multiple independent sources converge [3][5][6]) and token efficiency trade-offs (controlled benchmark [9]). Confidence is moderate for production adoption patterns (mix of vendor case studies and practitioner accounts, but limited longitudinal data). Confidence is low for regulated industry fit (few public accounts from healthcare/finance)."
+"Confidence is high for developer experience pain points (multiple independent sources converge [3][5][6]) and performance trade-offs (controlled benchmark [9]). Confidence is moderate for production adoption patterns (mix of vendor case studies and practitioner accounts, but limited longitudinal data). Confidence is low for regulated industry fit (few public accounts from healthcare/finance)."
 
 **VI. Sources**
 - Number all sources [1], [2], [3]... matching in-text citations
