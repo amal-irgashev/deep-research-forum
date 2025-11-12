@@ -10,16 +10,16 @@ from langchain.agents import AgentState
 from src.utils.utils import merge_str_dict, merge_int_dict, keep_first_str
 from src.supervisor.prompt import SUPERVISOR_SYSTEM_PROMPT
 from src.tools.web_search.web_search import web_search
-from src.supervisor.tools import launch_researcher, resume_researcher  # propose_research_plan commented out
+from src.supervisor.tools import launch_researcher, resume_researcher
 from src.utils.config import supervisor_model, filesystem_mw
 
 # Supervisor state schema (extends AgentState with tracking fields)
 class SupervisorAgentState(AgentState):
     """Extended agent state that keeps track of subagent thread IDs and resume counts."""
 
-    subagent_threads: NotRequired[Annotated[Dict[str, str], merge_str_dict]]  # agent_key → thread_id
-    resume_counts: NotRequired[Annotated[Dict[str, int], merge_int_dict]]  # thread_id → resume_count
-    session_name: NotRequired[Annotated[str, keep_first_str]]
+    subagent_threads: NotRequired[Annotated[Dict[str, str], merge_str_dict]]  # dimension → thread_id
+    resume_counts: NotRequired[Annotated[Dict[str, int], merge_int_dict]]     # thread_id → refinement_count
+    session_name: NotRequired[Annotated[str, keep_first_str]]                 # session folder name (e.g., "session-frameworks-2025") since all subagents are on their own threads, we need to track the session name to know which folder to read from
 
 
 
