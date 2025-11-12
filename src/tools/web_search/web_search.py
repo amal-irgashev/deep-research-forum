@@ -1,5 +1,14 @@
-"""Web search tool with structured JSON output for research agents."""
+"""Web search tool using two-stage pipeline: Exa retrieval → LLM summarization.
 
+Pipeline:
+1. Exa API fetches top search results with full text content (up to 5000 chars/result)
+2. LLM with structured output extracts findings + sources into ResearchResult schema
+
+This separation allows:
+- Cost control via max_characters (fewer tokens to LLM)
+- Quality control via LLM-powered extraction (vs raw search snippets)
+- Structured output enforcement (Pydantic schema validation)
+"""
 import os
 from functools import lru_cache
 from exa_py import Exa
@@ -13,7 +22,7 @@ from src.utils.config import web_search_summarization_model
 
 @lru_cache(maxsize=1)
 def _get_client():
-    """Get the Exa client (cached)."""
+    """Get cached Exa client (avoid reinitializing on every search)."""
     api_key = os.getenv("EXA_API_KEY")
     if not api_key:
         raise RuntimeError("EXA_API_KEY not set")
@@ -31,17 +40,12 @@ def web_search(query: str, max_results: int = 3) -> str:
     Returns:
         JSON string containing structured research findings, sources, and notes
 
-    Simple pipeline:
-    1) Use Exa to search and fetch full text contents for top results
-    2) Provide all content to an LLM with an instruction prompt
-    3) Enforce a Pydantic schema via structured_output for:
-       - findings: claim, evidence, source_urls, confidence
-       - sources: title, url, optional author/published_date
-       - notes: short caveats/tensions
+    Returns:
+        JSON string with structured research findings and sources
     """
     client = _get_client()
     
-    # 1) Retrieve search results with full text
+    # Stage 1: Exa retrieval (max_characters=5000 balances cost vs content quality)
     response = client.search_and_contents(
         query=query,
         num_results=max_results,
@@ -57,7 +61,7 @@ def web_search(query: str, max_results: int = 3) -> str:
             f'"confidence": "high"}}], "sources": []}}'
         )
     
-    # 2) Collect content and track sources
+    # Stage 2: Format content for LLM summarization
     all_content = []
     sources = []
     
@@ -93,14 +97,14 @@ def web_search(query: str, max_results: int = 3) -> str:
             f'"confidence": "high"}}], "sources": []}}'
         )
     
-    # 3) Combine content and extract structured findings via schema
+    # Stage 3: LLM extraction with structured output (Pydantic schema enforcement)
     combined = "\n\n---\n\n".join(all_content)
     messages = [
         SystemMessage(content=WEB_SEARCH_SUMMARIZER_PROMPT),
         HumanMessage(content=f"Query: {query}\n\nContent:\n{combined}"),
     ]
     
-    # Enforce schema with structured_output to ensure clean JSON
+    # with_structured_output forces LLM to return valid ResearchResult (or raise validation error)
     structured_model = web_search_summarization_model.with_structured_output(ResearchResult)
     result = structured_model.invoke(messages)
     

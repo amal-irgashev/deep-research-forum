@@ -13,7 +13,7 @@ from src.tools.web_search.web_search import web_search
 from src.supervisor.tools import launch_researcher, resume_researcher  # propose_research_plan commented out
 from src.utils.config import supervisor_model, filesystem_mw
 
-# supervisor agent state schema
+# Supervisor state schema (extends AgentState with tracking fields)
 class SupervisorAgentState(AgentState):
     """Extended agent state that keeps track of subagent thread IDs and resume counts."""
 
@@ -27,10 +27,14 @@ _BASE_SUPERVISOR_PROMPT = SUPERVISOR_SYSTEM_PROMPT.format(
     current_datetime=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 )
 
-# Dynamic prompt that injects subagent progress into system prompt
+# Dynamic prompt middleware: injects live researcher status before each LLM call
 @dynamic_prompt
 def supervisor_progress_prompt(request: ModelRequest) -> str:
-    """Inject subagent progress into supervisor system prompt."""
+    """Append active researcher progress to system prompt.
+    
+    Shows supervisor which dimensions are running and refinement counts.
+    Enables LLM to make informed decisions about resume_researcher calls.
+    """
     base = _BASE_SUPERVISOR_PROMPT
     threads = request.state.get("subagent_threads") or {}
     counts = request.state.get("resume_counts") or {}

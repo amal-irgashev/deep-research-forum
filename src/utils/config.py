@@ -1,14 +1,15 @@
+"""Shared configuration for models and filesystem middleware."""
 from pathlib import Path
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from deepagents.middleware import FilesystemMiddleware
 from deepagents.backends import FilesystemBackend
 
-# Load environment variables from .env file
+# Load environment variables
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# Shared filesystem middleware for both supervisor and research agents
+# Filesystem middleware (shared by supervisor and researchers)
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SANDBOX_ROOT = REPO_ROOT / "research_forum"
 SANDBOX_ROOT.mkdir(exist_ok=True)
@@ -16,7 +17,7 @@ SANDBOX_ROOT.mkdir(exist_ok=True)
 filesystem_mw = FilesystemMiddleware(
     backend=FilesystemBackend(
         root_dir=str(SANDBOX_ROOT),
-        virtual_mode=True,
+        virtual_mode=True,  # Enforce sandboxing: all paths normalized under root
     )
 )
 

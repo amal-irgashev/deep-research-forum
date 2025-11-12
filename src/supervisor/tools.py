@@ -57,10 +57,10 @@ All files stay in your workspace. Follow the workflow in your system prompt.
     # Invoke subagent (artifacts are written to filesystem; no state payload)
     research_agent_graph.invoke({"messages": [initial_message]}, config)
 
-    # Build update dict - only set session_name if not already set (avoid parallel update conflicts)
+    # Return state updates via Command (LangGraph merges parallel writes using reducers)
     update = {
-        "subagent_threads": {dimension_key: subagent_thread_id},
-        "resume_counts": {subagent_thread_id: 0},
+        "subagent_threads": {dimension_key: subagent_thread_id},  # For dynamic prompt display
+        "resume_counts": {subagent_thread_id: 0},                  # Initialize refinement counter
         "messages": [
             ToolMessage(
                 f"Launched researcher '{dimension_key}' → {subagent_thread_id}\nWorkspace: {sandbox_path}",
@@ -69,7 +69,7 @@ All files stay in your workspace. Follow the workflow in your system prompt.
         ],
     }
     
-    # Only set session_name on first launch to avoid concurrent update errors
+    # Only first launch sets session_name (keep_first_str reducer handles concurrent writes)
     if not runtime.state.get("session_name"):
         update["session_name"] = session_name
     
@@ -85,13 +85,12 @@ def resume_researcher(
     """Resume an existing researcher with refinement instructions.
     
     Args:
-        thread_id: The researcher's thread_id (e.g., "research:code-first-frameworks:abc123")
-        refinement_instructions: What to explore in this round
+        thread_id: The researcher's thread_id from subagent_threads (e.g., "research:dev-reality:abc123")
+        refinement_instructions: Specific follow-up prompt based on cross-dimension findings
     """
-    # Get session name from state (set by launch_researcher)
     session_name = runtime.state.get("session_name", "session")
     
-    # Extract dimension_key from thread_id (format: "research:{dimension_key}:{uuid}")
+    # Parse dimension_key from thread_id format: "research:{dimension_key}:{uuid}"
     parts = thread_id.split(":")
     if len(parts) >= 2:
         dimension_key = parts[1]
