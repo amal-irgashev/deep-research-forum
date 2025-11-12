@@ -30,12 +30,12 @@ def _get_client():
 
 
 @tool
-def web_search(query: str, max_results: int = 3) -> str:
+def web_search(query: str, max_results: int = 2) -> str:
     """Search the web and return structured findings with sources (JSON).
 
     Args:
         query: Natural language search query to execute
-        max_results: Maximum number of search results to retrieve (default: 3)
+        max_results: Maximum number of search results to retrieve (default: 2)
 
     Returns:
         JSON string containing structured research findings, sources, and notes
@@ -45,11 +45,11 @@ def web_search(query: str, max_results: int = 3) -> str:
     """
     client = _get_client()
     
-    # Stage 1: Exa retrieval (max_characters=5000 balances cost vs content quality)
+    # Stage 1: Exa retrieval (max_characters=2500 balances cost vs content quality)
     response = client.search_and_contents(
         query=query,
         num_results=max_results,
-        text={"max_characters": 5000}, 
+        text={"max_characters": 2500},
         type="auto",
     )
     if not response.results:
@@ -83,7 +83,7 @@ def web_search(query: str, max_results: int = 3) -> str:
                     author=getattr(result, "author", None),
                     published_date=str(getattr(result, "published_date", None)) 
                     if getattr(result, "published_date", None) else None,
-                    snippet=(text[:1000] if text_len > 0 else None),
+                    snippet=(text[:500] if text_len > 0 else None),  # Reduced from 1000 to 500 chars
                     text_length=text_len,
                 )
             )

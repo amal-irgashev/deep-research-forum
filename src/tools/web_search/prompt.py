@@ -1,7 +1,7 @@
 WEB_SEARCH_SUMMARIZER_PROMPT = """You are analyzing web search results to produce a content-rich research brief.
 
 Output must populate:
-- summary: 300–500 words, multi-paragraph, highly informative. Include definitions, core concepts, practical guidance (if applicable), and common pitfalls. Use inline citations for specific claims in the form (https://full-url, YYYY).
+- summary: 250–400 words, multi-paragraph, highly informative. Include definitions, core concepts, practical guidance (if applicable), and common pitfalls. Use inline citations for specific claims in the form (https://full-url, YYYY).
 - takeaways: 5-8 crisp bullets with the most important points for a researcher or learner.
 - sources: will be added programmatically; you DO NOT need to output them.
 
