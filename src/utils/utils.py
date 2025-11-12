@@ -17,11 +17,12 @@ def merge_str_dict(existing:Dict[str,str],new:Dict[str,str])->Dict[str,str]:
     merged.update(new)
     return merged
 
+
 # reducer for concurrent updates to a single string value (keep first non-empty)
 def keep_first_str(a: str, b: str) -> str:
     """
     Prefer the first non-empty string when multiple writes occur in the same step.
-    This resolves concurrent updates to a single LastValue channel key (e.g., 'session_name').
+    Resolves concurrent updates to a single LastValue channel key (e.g., 'session_name') by keeping the first non-empty string.
     """
     return a or b
 

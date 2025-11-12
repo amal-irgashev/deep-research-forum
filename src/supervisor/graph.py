@@ -38,19 +38,16 @@ def supervisor_progress_prompt(request: ModelRequest) -> str:
     if not threads:
         return base
     
-    # Format progress summary
+    # Build progress summary
     lines = []
-    for topic, tid in sorted(threads.items()):
-        n = counts.get(tid, 0)
-        if n == 0:
-            suffix = "refinements: 0/2"
-        elif n == 1:
-            suffix = "refinements: 1/2"
-        elif n == 2:
-            suffix = "refinements: 2/2 (limit reached)"
-        else:
-            suffix = f"refinements: {n}/2 (limit exceeded)"
-        lines.append(f"- {topic} → {tid} ({suffix})")
+    for dimension, thread_id in sorted(threads.items()):
+        count = counts.get(thread_id, 0)
+        status = f"refinements: {count}/2"
+        if count == 2:
+            status += " (limit reached)"
+        elif count > 2:
+            status += " (limit exceeded)"
+        lines.append(f"- {dimension} → {thread_id} ({status})")
     
     return f"{base}\n\n### Current Subagent Progress\n" + "\n".join(lines)
 

@@ -43,10 +43,3 @@ web_search_summarization_model = init_chat_model(
     temperature=0.1,
     disable_streaming=True,
 )
-
-rolling_summarization_model = init_chat_model(
-    "openai:gpt-5-mini",
-    reasoning_effort="medium",
-    temperature=0.1,
-    disable_streaming=True,
-)
