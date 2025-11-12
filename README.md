@@ -22,8 +22,8 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 
 **2. Clone the repo**
 ```bash
-git clone https://github.com/amal-irgashev/deep-researcher-agent.git
-cd deep-researcher-agent
+git clone https://github.com/amal-irgashev/deep-research-forum.git
+cd deep-research-forum
 ```
 
 **3. Install dependencies**
