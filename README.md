@@ -1,8 +1,8 @@
 # Deep Research Forum
 
-A deep research system that works like a moderated forum. The Supervisor assigns different **perspectives** to isolated researcher subagents (e.g "vendor claims vs practitioner reality" or "prototype speed vs production stability.") Each researcher explores independently in the isolated environment, finding evidence through their assigned viewpoint.
+A deep research system that works like a moderated forum. The Supervisor assigns different **perspectives** to isolated researcher subagents. Each researcher explores independently in the isolated environment, finding evidence through their assigned viewpoint.
 
-The Supervisor reads all findings, spots tensions ("Agent A found success stories, but Agent B found abandonment patterns"), then asks targeted follow-up questions. The final report synthesizes all perspectives into an unbiased view—forced to account for contradictory evidence rather than cherry-picking. Bias reduction happens through **isolation** (no groupthink) and **mandatory multi-perspective synthesis** (can't ignore conflicting findings).
+The Supervisor reads all findings, spots tensions ("Agent A found success stories, but Agent B found abandonment patterns"), then asks subagents targeted follow-up questions. The final report synthesizes all perspectives into an unbiased view forced to account for contradictory evidence rather than cherry-picking. Bias reduction happens through **isolation** and **mandatory multi-perspective synthesis** (can't ignore conflicting findings).
 
 ---
 
