@@ -44,10 +44,10 @@ async def web_search(query: str, max_results: int = 2) -> str:
         client = _get_client()
         
         # Stage 1: Exa retrieval (max_characters=2500 balances cost vs content quality)
-        response = await client.search_and_contents(
+        response = await client.search(
             query=query,
             num_results=max_results,
-            text={"max_characters": 2500},
+            contents={"text": {"max_characters": 2500}},
             type="auto",
         )
         if not response.results:
@@ -56,7 +56,7 @@ async def web_search(query: str, max_results: int = 2) -> str:
                 f'"claim": "No results found", '
                 f'"evidence": "Search returned no results", '
                 f'"source_urls": [], '
-                f'"confidence": "high"}}], "sources": []}}'
+                f'"confidence": "unknown"}}], "sources": []}}'
             )
         
         # Stage 2: Format content for LLM summarization
