@@ -16,10 +16,9 @@ class Source(BaseModel):
 
 
 class ResearchResult(BaseModel):
-    """Minimal, general-purpose output for research agents.
-    
-    - summary: 600–900 words, rich content with inline citations (full URL + year)
-    - takeaways: 6–12 crisp bullet points
+    """Minimal, general-purpose output schema for web search results.
+    - summary: 250–400 words, rich content with inline citations (full URL + year)
+    - takeaways: 5-8 crisp bullet points
     - sources: metadata + snippets for transparency and follow-up reading
     """
     query: str = Field(description="The original search query")

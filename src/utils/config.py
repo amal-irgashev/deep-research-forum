@@ -9,7 +9,8 @@ from deepagents.backends import FilesystemBackend
 env_path = Path(__file__).parent.parent / ".env"
 load_dotenv(dotenv_path=env_path)
 
-# Filesystem middleware (shared by supervisor and researchers)
+# -------------------------------- FILESYSTEM MIDDLEWARE --------------------------------
+# Creates a local directory "research_forum" in the root of the p
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SANDBOX_ROOT = REPO_ROOT / "research_forum"
 SANDBOX_ROOT.mkdir(exist_ok=True)
@@ -21,6 +22,7 @@ filesystem_mw = FilesystemMiddleware(
     )
 )
 
+# ------------------------------- LLM CONFIGURATIONS --------------------------------
 # Supervisor model
 supervisor_model = init_chat_model(
     "anthropic:claude-sonnet-4-5-20250929",

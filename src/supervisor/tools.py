@@ -11,6 +11,10 @@ from src.utils.config import supervisor_model
 from src.researcher.graph import research_agent_graph
 from src.supervisor.schemas import ResearchAssignment
 
+
+# -------------------------------- LAUNCH RESEARCHER TOOL --------------------------------
+# Launches a researcher graph using .ainvoke() method and returns state updates via Command
+# State updates are merged using reducers (merge_str_dict, merge_int_dict, keep_first_str)
 @tool
 async def launch_researcher(runtime: ToolRuntime, assignment: ResearchAssignment) -> Command:
     """Start a researcher on a dimension. Pass ResearchAssignment with dimension_key, workspace_path, lens_title, lens_brief."""
@@ -86,6 +90,10 @@ All files stay in your workspace. Follow the workflow in your system prompt.
     return Command(update=update)
 
 
+
+# -------------------------------- RESUME RESEARCHER TOOL --------------------------------
+# Resumes a researcher graph using .ainvoke() method and returns state updates via Command
+# State updates are merged using reducers (merge_int_dict)
 @tool
 async def resume_researcher(runtime: ToolRuntime, thread_id: str, refinement_instructions: str = "") -> Command:
     """Resume an existing researcher with refinement instructions.
