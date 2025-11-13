@@ -12,7 +12,7 @@ from src.researcher.graph import research_agent_graph
 from src.supervisor.schemas import ResearchAssignment
 
 @tool
-def launch_researcher(runtime: ToolRuntime, assignment: ResearchAssignment) -> Command:
+async def launch_researcher(runtime: ToolRuntime, assignment: ResearchAssignment) -> Command:
     """Start a researcher on a dimension. Pass ResearchAssignment with dimension_key, workspace_path, lens_title, lens_brief."""
     # Use provided dimension key and workspace path directly
     dimension_key = assignment.dimension_key
@@ -54,8 +54,18 @@ All files stay in your workspace. Follow the workflow in your system prompt.
 """
     initial_message = HumanMessage(content=instruction)
 
-    # Invoke subagent (artifacts are written to filesystem; no state payload)
-    research_agent_graph.invoke({"messages": [initial_message]}, config)
+    # Invoke subagent (async) with minimal error handling to avoid superstep rollback
+    try:
+        await research_agent_graph.ainvoke({"messages": [initial_message]}, config)
+    except Exception as e:
+        return Command(update={
+            "messages": [
+                ToolMessage(
+                    f"Failed to launch researcher '{dimension_key}': {e}",
+                    tool_call_id=runtime.tool_call_id,
+                )
+            ]
+        })
 
     # Return state updates via Command (LangGraph merges parallel writes using reducers)
     update = {
@@ -77,11 +87,7 @@ All files stay in your workspace. Follow the workflow in your system prompt.
 
 
 @tool
-def resume_researcher(
-    runtime: ToolRuntime,
-    thread_id: str,
-    refinement_instructions: str = "",
-) -> Command:
+async def resume_researcher(runtime: ToolRuntime, thread_id: str, refinement_instructions: str = "") -> Command:
     """Resume an existing researcher with refinement instructions.
     
     Args:
@@ -118,7 +124,17 @@ def resume_researcher(
         messages.append(HumanMessage(content=content))
 
     inputs = {"messages": messages} if messages else None
-    research_agent_graph.invoke(inputs, config)
+    try:
+        await research_agent_graph.ainvoke(inputs, config)
+    except Exception as e:
+        return Command(update={
+            "messages": [
+                ToolMessage(
+                    f"Failed to resume researcher '{dimension_key}' (thread {thread_id}): {e}",
+                    tool_call_id=runtime.tool_call_id,
+                )
+            ]
+        })
 
     return Command(update={
         "resume_counts": {thread_id: 1},  # merged additively by merge_int_dict

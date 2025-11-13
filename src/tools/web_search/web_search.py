@@ -11,7 +11,7 @@ This separation allows:
 """
 import os
 from functools import lru_cache
-from exa_py import Exa
+from exa_py import AsyncExa
 from langchain_core.tools import tool
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -22,15 +22,15 @@ from src.utils.config import web_search_summarization_model
 
 @lru_cache(maxsize=1)
 def _get_client():
-    """Get cached Exa client (avoid reinitializing on every search)."""
+    """Get cached AsyncExa client (avoid reinitializing on every search)."""
     api_key = os.getenv("EXA_API_KEY")
     if not api_key:
         raise RuntimeError("EXA_API_KEY not set")
-    return Exa(api_key=api_key)
+    return AsyncExa(api_key=api_key)
 
 
 @tool
-def web_search(query: str, max_results: int = 2) -> str:
+async def web_search(query: str, max_results: int = 2) -> str:
     """Search the web and return structured findings with sources (JSON).
 
     Args:
@@ -39,76 +39,87 @@ def web_search(query: str, max_results: int = 2) -> str:
 
     Returns:
         JSON string containing structured research findings, sources, and notes
-
-    Returns:
-        JSON string with structured research findings and sources
     """
-    client = _get_client()
-    
-    # Stage 1: Exa retrieval (max_characters=2500 balances cost vs content quality)
-    response = client.search_and_contents(
-        query=query,
-        num_results=max_results,
-        text={"max_characters": 2500},
-        type="auto",
-    )
-    if not response.results:
-        return (
-            f'{{"query": "{query}", "findings": [{{'
-            f'"claim": "No results found", '
-            f'"evidence": "Search returned no results", '
-            f'"source_urls": [], '
-            f'"confidence": "high"}}], "sources": []}}'
-        )
-    
-    # Stage 2: Format content for LLM summarization
-    all_content = []
-    sources = []
-    
-    for result in response.results:
-        title = result.title or "Untitled"
-        url = result.url or ""
-        text = result.text or ""
-        text_len = len(text or "")
+    try:
+        client = _get_client()
         
-        if text:
-            # Format each document for the model: [Title] (URL)\n<full text>
-            all_content.append(f"[{title}] ({url})\n{text}")
-            
-            # Track structured source metadata (best effort)
-            sources.append(
-                Source(
-                    title=title,
-                    url=url,
-                    author=getattr(result, "author", None),
-                    published_date=str(getattr(result, "published_date", None)) 
-                    if getattr(result, "published_date", None) else None,
-                    snippet=(text[:500] if text_len > 0 else None),  # Reduced from 1000 to 500 chars
-                    text_length=text_len,
-                )
-            )
-    
-    if not all_content:
-        return (
-            f'{{"query": "{query}", "findings": [{{'
-            f'"claim": "No content found", '
-            f'"evidence": "Sources returned empty content", '
-            f'"source_urls": [], '
-            f'"confidence": "high"}}], "sources": []}}'
+        # Stage 1: Exa retrieval (max_characters=2500 balances cost vs content quality)
+        response = await client.search_and_contents(
+            query=query,
+            num_results=max_results,
+            text={"max_characters": 2500},
+            type="auto",
         )
+        if not response.results:
+            return (
+                f'{{"query": "{query}", "findings": [{{'
+                f'"claim": "No results found", '
+                f'"evidence": "Search returned no results", '
+                f'"source_urls": [], '
+                f'"confidence": "high"}}], "sources": []}}'
+            )
+        
+        # Stage 2: Format content for LLM summarization
+        all_content = []
+        sources = []
+        
+        for result in response.results:
+            title = result.title or "Untitled"
+            url = result.url or ""
+            text = result.text or ""
+            text_len = len(text or "")
+            
+            if text:
+                # Format each document for the model: [Title] (URL)\n<full text>
+                all_content.append(f"[{title}] ({url})\n{text}")
+                
+                # Track structured source metadata (best effort)
+                sources.append(
+                    Source(
+                        title=title,
+                        url=url,
+                        author=getattr(result, "author", None),
+                        published_date=str(getattr(result, "published_date", None)) 
+                        if getattr(result, "published_date", None) else None,
+                        snippet=(text[:500] if text_len > 0 else None),
+                        text_length=text_len,
+                    )
+                )
+        
+        if not all_content:
+            return (
+                f'{{"query": "{query}", "findings": [{{'
+                f'"claim": "No content found", '
+                f'"evidence": "Sources returned empty content", '
+                f'"source_urls": [], '
+                f'"confidence": "high"}}], "sources": []}}'
+            )
+        
+        # Stage 3: LLM extraction with structured output (Pydantic schema enforcement)
+        combined = "\n\n---\n\n".join(all_content)
+        messages = [
+            SystemMessage(content=WEB_SEARCH_SUMMARIZER_PROMPT),
+            HumanMessage(content=f"Query: {query}\n\nContent:\n{combined}"),
+        ]
+        
+        # with_structured_output forces LLM to return valid ResearchResult (or raise validation error)
+        structured_model = web_search_summarization_model.with_structured_output(ResearchResult)
+        result = await structured_model.ainvoke(messages)
+        
+        # Always attach concrete sources with snippets for transparency
+        result.sources = sources
+        
+        return result.model_dump_json(indent=2)
     
-    # Stage 3: LLM extraction with structured output (Pydantic schema enforcement)
-    combined = "\n\n---\n\n".join(all_content)
-    messages = [
-        SystemMessage(content=WEB_SEARCH_SUMMARIZER_PROMPT),
-        HumanMessage(content=f"Query: {query}\n\nContent:\n{combined}"),
-    ]
-    
-    # with_structured_output forces LLM to return valid ResearchResult (or raise validation error)
-    structured_model = web_search_summarization_model.with_structured_output(ResearchResult)
-    result = structured_model.invoke(messages)
-    
-    # Always attach concrete sources with snippets for transparency
-    result.sources = sources
-    
-    return result.model_dump_json(indent=2)
+    except Exception as e:
+        # Return error as valid JSON so agent can see what failed without crashing
+        return (
+            f'{{"query": "{query}", '
+            f'"findings": [{{'
+            f'"claim": "Search failed", '
+            f'"evidence": "Error: {str(e)}", '
+            f'"source_urls": [], '
+            f'"confidence": "high"}}], '
+            f'"sources": [], '
+            f'"error": "{str(e)}"}}'
+        )
