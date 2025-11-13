@@ -1,0 +1,28 @@
+{
+  "technical-architecture": {
+    "round_1": "Got the high-level UMA story and Firestorm/Icestorm cores from Apple + AnandTech. Unified memory architecture with wide LPDDR bus (128-bit inferred), 5nm TSMC process. BUT: missing the DEEP technical details—cache sizes, exact memory bandwidth numbers, die shots, instruction set advantages, what makes Firestorm cores so fast (IPC, pipeline depth, execution units). Only 2 sources, both high-level overviews.",
+    "tensions": "User wants to LEARN about the chip itself—needs way more technical depth. Cache hierarchy? Memory bandwidth measurements? Core microarchitecture details? Instruction decode width? Reorder buffer size?",
+    "quality": "needs_depth—has the overview but missing the technical meat",
+    "next": "Get die shots, reverse engineering analysis, detailed microarchitecture breakdowns. Find cache sizes, memory bandwidth measurements, IPC analysis, what makes the cores tick. Target Chips and Cheese, WikiChip, detailed AnandTech microarch analysis."
+  },
+  "skepticism-dismissal": {
+    "round_1": "GREAT narrative thread: 'just a phone chip' dismissal, Intel's desperate benchmark campaign, forum skepticism about compatibility. Found the vendor vs independent benchmark tension. Intel got caught cherry-picking tests. Community worried about x86 apps and virtualization.",
+    "tensions": "This is the 'why was it disregarded' angle—perfect. But could use MORE specific quotes/examples of people being wrong. Who were the loudest skeptics? What specific technical arguments did they make that flopped?",
+    "quality": "good_foundation—has the narrative, could use more specific examples",
+    "next": "Find specific tech commentators/analysts who dismissed it. Get direct quotes. What did Linus Tech Tips say? What did Intel executives claim? Find the most embarrassing wrong predictions."
+  },
+  "performance-benchmarks": {
+    "round_1": "Found the pattern: M1 crushes single-thread, amazing efficiency, but sustained multi-core depends on cooling (fanless Air throttles). AnandTech reviews + community Cinebench runs. BUT: missing the HARD NUMBERS user wants. Need specific Geekbench scores, Cinebench scores, power consumption watts, performance-per-watt calculations, direct Intel i5/i7 comparisons.",
+    "round_2": "Found Notebookcheck reviews confirming the pattern (M1 wins single-thread, fanless Air throttles on sustained loads). BUT: still missing the consolidated numeric table. Researcher admits they couldn't pull specific Geekbench/Cinebench scores for M1 vs i7-1165G7 vs i5-1035G1 in this round. Need one more targeted search for actual numbers.",
+    "tensions": "The qualitative story is solid and confirmed by multiple sources. But user wants NUMBERS to see the leap. We have the methodology (Notebookcheck, sustained loops) but not the actual scores yet.",
+    "quality": "needs_one_more_round—has methodology and patterns, needs the actual benchmark table",
+    "next": "One final targeted search: Geekbench Browser for specific scores, pull Notebookcheck device pages for exact Cinebench R23 numbers, get power draw measurements. Make the comparison table."
+  },
+  "intel-competitive-failure": {
+    "round_1": "Solid on Intel's 10nm disaster: too aggressive with multi-patterning, should've gone EUV earlier, yield problems cascaded into architectural stagnation. Good organizational analysis. BUT: missing the 'why couldn't Qualcomm/Samsung do this?' angle. What did Apple have that other ARM vendors didn't?",
+    "round_2": "PERFECT! Found the Qualcomm/Surface Pro X comparison—ecosystem problems (app compatibility, driver gaps, emulation limits) plus Apple's vertical integration advantage (decade of custom core work, macOS control, developer tools). Surface Pro X had the hardware but not the software ecosystem. Apple had BOTH. Also noted Intel's Alder Lake response needs follow-up.",
+    "tensions": "This connects beautifully to technical-architecture: Apple's custom Firestorm cores + unified memory + macOS optimization = systemic advantage. Qualcomm had ARM chips but not the full-stack control. The chip alone wasn't enough—needed the ecosystem.",
+    "quality": "ready—has Intel's failure, Qualcomm's struggles, Apple's unique advantages",
+    "next": "Could add Intel Alder Lake response (P/E cores copying Apple?) but we have enough for the core story."
+  }
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Intel Fires Back at Apple's M1 Processors With Benchmarks",
+    "url": "https://www.tomshardware.com/news/intel-fires-back-at-apple-m1-processors-with-benchmarks",
+    "author": "Andrew E. Freedman",
+    "published_date": "2021",
+    "notes": "Documents Intel's benchmark slides and media response; useful for vendor rebuttal framing"
+  },
+  {
+    "title": "Intel benchmarks say Apple’s M1 isn’t faster. Let’s reality-check the claims",
+    "url": "https://www.pcworld.com/article/394051/intel-benchmarks-say-apples-m1-isnt-faster.html",
+    "author": "",
+    "published_date": "2021",
+    "notes": "Analysis cautioning against accepting vendor benchmarks at face value"
+  },
+  {
+    "title": "Apple Announces M1 Chip for the Mac - MacRumors forum thread",
+    "url": "https://forums.macrumors.com/threads/apple-announces-m1-chip-for-the-mac.2266770/",
+    "author": "MacRumors community",
+    "published_date": "2020",
+    "notes": "Community concerns about app compatibility and virtualization"
+  },
+  {
+    "title": "The Apple M1 - Ars Technica forum thread",
+    "url": "https://arstechnica.com/civis/threads/the-apple-m1.1472085/",
+    "author": "Ars Technica community",
+    "published_date": "2020",
+    "notes": "Die-level discussion and technical analyses from enthusiasts"
+  },
+  {
+    "title": "Was I WRONG About Apple M1 Silicon - WAN Show November 13 , 2020",
+    "url": "https://www.youtube.com/watch?v=GfSidouUVlw",
+    "author": "Linus Tech Tips (WAN Show)",
+    "published_date": "2020-11-13",
+    "notes": "WAN Show episode indicating reconsideration or debate about earlier take"
+  },
+  {
+    "title": "Dear Linus...You're Wrong About the Apple M1",
+    "url": "https://www.youtube.com/watch?v=xUkDku_Qt5c",
+    "author": "Jonathan Morrison",
+    "published_date": "2020-11-11",
+    "notes": "Direct rebuttal to Linus's skepticism; evidence of public debate among creators"
+  },
+  {
+    "title": "Apple Silicon M1 Emulating x86 Is Still Faster Than Every Other Mac (Hacker News)",
+    "url": "https://news.ycombinator.com/item?id=25105597",
+    "author": "Hacker News community",
+    "published_date": "2020-11-15",
+    "notes": "Thread discussing Rosetta 2 performance and early benchmark surprises"
+  },
+  {
+    "title": "Docker fails to launch on Apple Silicon (Hacker News)",
+    "url": "https://news.ycombinator.com/item?id=25073010",
+    "author": "Hacker News community",
+    "published_date": "2020-11-12",
+    "notes": "Thread capturing early confusion about Docker, DTK vs M1 capabilities"
+  }
+]

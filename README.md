@@ -46,7 +46,7 @@ Get API keys:
 uv run langgraph dev
 ```
 
-Open LangGraph Studio: https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:2024
+**Example output**: See [docs/research_output_example.md](docs/research_output_example.md) for an example final report generated + subagent findings in the session-m1-chip(example) directory.
 
 **Note**: It's recommended to clean up the `research_forum/` folder between research sessions to avoid workspace conflicts:
 ```bash

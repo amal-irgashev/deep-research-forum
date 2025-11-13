@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Intel Acknowledges It Was 'Too Aggressive' With Its 10nm Plans",
+    "url": "https://www.extremetech.com/computing/295159-intel-acknowledges-its-long-10nm-delay-caused-by-being-too-aggressive",
+    "published_date": "2019",
+    "notes": "Article summarizing Intel's acknowledgement and the aggressive roadmap/organizational factors."
+  },
+  {
+    "title": "The ugly truth behind Intel's woes",
+    "url": "https://www.infinitevalueptr.com/post/intel_10nm?amp%3Butm_medium=link&amp%3Butm_campaign=r%2Finvesting",
+    "published_date": "2020",
+    "notes": "Investor-focused postmortem arguing technical + strategic causes for delays."
+  },
+  {
+    "title": "Why Qualcomm's Big Laptop Push Failed - YouTube",
+    "url": "https://www.youtube.com/watch?v=JJiFS-wCyHU",
+    "published_date": "2025-05-19",
+    "notes": "Video postmortem discussing ecosystem, positioning, and technical limits of Qualcomm's Windows-on-ARM efforts."
+  },
+  {
+    "title": "Why The Apple M1 Chip Is So Fast - A Developer Explains",
+    "url": "https://www.production-expert.com/production-expert-1/why-are-the-apple-m1-m1-pro-and-m1-max-chips-so-fast",
+    "published_date": "2023-06-20",
+    "notes": "Explains SoC integration and unified memory advantages of M1."
+  },
+  {
+    "title": "The 2020 Mac Mini Unleashed: Putting Apple Silicon M1 To The Test (AnandTech)",
+    "url": "https://www.anandtech.com/Show/Index/16252?cPage=64&all=False&sort=0&page=1&slug=mac-mini-apple-m1-tested",
+    "published_date": "2020",
+    "notes": "AnandTech M1 review with detailed system-level analysis."
+  },
+  {
+    "title": "An M1 Mac vs the Surface Pro X: How do ARM devices compare?",
+    "url": "https://www.ianbetteridge.com/an-m1-mac-vs-the-surface-pro-x-how-do-arm-devices-compare/",
+    "published_date": "2020-12-13",
+    "notes": "Comparison of Surface Pro X (Qualcomm) and M1 Macs highlighting ecosystem differences."
+  },
+  {
+    "title": "Apple iPad Pro M1 vs. Surface Pro X; Which is the best ARM tablet?",
+    "url": "https://www.xda-developers.com/ipad-pro-m1-vs-surface-pro-x/",
+    "published_date": "2021-07-30",
+    "notes": "Comparison noting Surface strengths in design and LTE, M1 strengths in app support and performance."
+  },
+  {
+    "title": "Why is the surface with snapdragon still got problems with most apps after",
+    "url": "https://learn.microsoft.com/en-us/answers/questions/2318272/why-is-the-surface-with-snapdragon-still-got-probl",
+    "published_date": "2025-06-09",
+    "notes": "Community thread documenting app compatibility problems on Snapdragon-based Surfaces."
+  }
+]

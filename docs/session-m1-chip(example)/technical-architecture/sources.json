@@ -1,0 +1,51 @@
+[
+  {
+    "title": "Apple unleashes M1",
+    "url": "https://www.apple.com/newsroom/2020/11/apple-unleashes-m1/",
+    "author": "Apple",
+    "published_date": "2020-11-10",
+    "notes": "Official announcement explaining UMA, Neural Engine, SoC integration, transistor count and 5nm process."
+  },
+  {
+    "title": "Apple Silicon M1, A14: Deep Dive",
+    "url": "https://www.anandtech.com/show/16226/apple-silicon-m1-a14-deep-dive",
+    "author": "AnandTech",
+    "published_date": "2020-11-10",
+    "notes": "Technical analysis and packaging inference (128-bit LPDDR bus inference), discussion of microarchitecture Firestorm/Icestorm and packaging implications."
+  },
+  {
+    "title": "M1 - Apple - WikiChip",
+    "url": "https://en.wikichip.org/wiki/apple/mx/m1",
+    "author": "WikiChip",
+    "published_date": "2022-03-12",
+    "notes": "Die shots, floorplan summaries and block-level layout descriptions aggregated from TechInsights and other reverse-engineering firms."
+  },
+  {
+    "title": "Die Shots of Apple's A14 Bionic & M1 SoCs Compared",
+    "url": "https://www.tomshardware.com/news/apple-m1-vs-apple-m14-floorplans",
+    "author": "Tom's Hardware",
+    "published_date": "2020-12-29",
+    "notes": "Summary of TechInsights die-shot analysis and floorplan differences between A14 and M1."
+  },
+  {
+    "title": "Firestorm Overview",
+    "url": "https://dougallj.github.io/applecpu/firestorm.html",
+    "author": "Dougall Johnson",
+    "published_date": "2021-04-08",
+    "notes": "Community reverse-engineering of Firestorm/Icestorm microarchitecture: uop widths, counters, and microbenchmark-based inferences."
+  },
+  {
+    "title": "Apple M1: Load and Store Queue Measurements - dougallj",
+    "url": "https://dougallj.wordpress.com/2021/04/08/apple-m1-load-and-store-queue-measurements/",
+    "author": "Dougall Johnson",
+    "published_date": "2021-04-08",
+    "notes": "Experimental measurements suggesting ~128 loads-in-flight and ~100+ stores before stalls; technique and caveats explained."
+  },
+  {
+    "title": "Apple M1 P-core (Firestorm) - CPU Microarchitecture Diagrams",
+    "url": "https://jia.je/cpu/firestorm.html",
+    "author": "jia.je",
+    "published_date": "2024-08-02",
+    "notes": "Microarchitecture diagrams and synthesized notes from community research on Firestorm core internals."
+  }
+]
