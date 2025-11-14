@@ -57,7 +57,7 @@ rm -rf research_forum/session-*
 
 ## Architecture
 
-![Deep Research Forum Design](design.png)
+<img src="design.png" alt="Deep Research Forum Design" style="border-radius: 12px;" />
 
 ### Core Pattern
 
