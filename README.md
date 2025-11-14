@@ -57,10 +57,9 @@ rm -rf research_forum/session-*
 
 ## Architecture
 
-<img src="design.png" alt="Deep Research Forum Design" style="border-radius: 12px;" />
+![Architecture Diagram](design.png)
 
 ### Core Pattern
-
 Supervisor (Claude Sonnet 4.5) orchestrates isolated researchers (GPT-5 mini), each exploring a distinct **perspective lens**. Researchers write `findings.md` + `sources.json` to sandboxed folders under `research_forum/session-<slug>/<dimension>/`.
 
 **Typical run**: 10-15 minutes, ~$0.60 (3-5 dimensions × 1-2 rounds).
