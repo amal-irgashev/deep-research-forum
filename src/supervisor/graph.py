@@ -13,6 +13,7 @@ from src.tools.web_search.web_search import web_search
 from src.supervisor.tools import launch_researcher, resume_researcher
 from src.utils.config import supervisor_model, filesystem_mw
 
+
 # -------------------------------- SUPERVISOR AGENT STATE --------------------------------
 # Supervisor agent state extends AgentState with multi-agent coordination fields.
 # 
@@ -26,17 +27,12 @@ class SupervisorAgentState(AgentState):
     """Extended agent state that keeps track of subagent thread IDs and resume counts."""
 
     subagent_threads: NotRequired[Annotated[Dict[str, str], merge_str_dict]]  # dimension → thread_id
-    resume_counts: NotRequired[Annotated[Dict[str, int], merge_int_dict]]     # thread_id → count (accumulates: 0→1→2)
-    session_name: NotRequired[Annotated[str, keep_first_str]]                 # e.g. "session-frameworks-2025" (immutable)
+    resume_counts: NotRequired[Annotated[Dict[str, int], merge_int_dict]]     # thread_id → refinement_count
+    session_name: NotRequired[Annotated[str, keep_first_str]]                 # session folder name (e.g., "session-frameworks-2025") since all subagents are on their own threads, we need to track the session name to know which folder to read from
 
 
 
-# Base supervisor prompt with current datetime
-_BASE_SUPERVISOR_PROMPT = SUPERVISOR_SYSTEM_PROMPT.format(
-    current_datetime=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
-)
-
-# Dynamic prompt middleware: injects live researcher status before each LLM call
+# Dynamic prompt middleware: injects live researcher status + current datetime before each LLM call
 @dynamic_prompt
 def supervisor_progress_prompt(request: ModelRequest) -> str:
     """Append active researcher progress to system prompt.
@@ -44,7 +40,10 @@ def supervisor_progress_prompt(request: ModelRequest) -> str:
     Shows supervisor which dimensions are running and refinement counts.
     Enables LLM to make informed decisions about resume_researcher calls.
     """
-    base = _BASE_SUPERVISOR_PROMPT
+    # Format datetime fresh on every request
+    base = SUPERVISOR_SYSTEM_PROMPT.format(
+        current_datetime=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    )
     threads = request.state.get("subagent_threads") or {}
     counts = request.state.get("resume_counts") or {}
     
@@ -68,7 +67,7 @@ def supervisor_progress_prompt(request: ModelRequest) -> str:
 # -------------------------------- SUPERVISOR AGENT GRAPH --------------------------------
 agent = create_agent(
     model=supervisor_model,
-    system_prompt=_BASE_SUPERVISOR_PROMPT,
+    system_prompt="", # supervisor_progress_prompt builds full prompt dynamically
     tools=[
         web_search,
         launch_researcher,
@@ -76,8 +75,8 @@ agent = create_agent(
     ],
     state_schema=SupervisorAgentState,
     middleware=[
-        supervisor_progress_prompt,  # inject subagent statuses into system prompt using @dynamic_prompt
-        filesystem_mw,  # file operations using FilesystemMiddleware and FilesystemBackend
+        supervisor_progress_prompt,  # inject current datetime + subagent statuses into system prompt
+        filesystem_mw,  # file operations
     ],
 )
 
