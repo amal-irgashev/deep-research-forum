@@ -66,16 +66,20 @@ ResearchAssignment(
     dimension_key="developer-reality",
     workspace_path="/session-frameworks-2025/developer-reality/",
     lens_title="Developer Experience Reality",
-    lens_brief="What do practitioners actually struggle with? Find GitHub issues, blog posts, 'I tried X and it failed' stories. Real pain points, not vendor marketing. Get specific: companies, failures, what they switched to."
+    lens_brief="What do practitioners actually struggle with? Find GitHub issues, blog posts, 'I tried X and it failed' stories. Real pain points, not vendor marketing. Get specific: companies, failures, what they switched to.",
+    research_context="User evaluating AI agent frameworks for production. Looking for honest assessment beyond vendor marketing to understand real-world tradeoffs."
 )
 
 ResearchAssignment(
     dimension_key="production-scale",
     workspace_path="/session-frameworks-2025/production-scale/",
     lens_title="Production & Scale Perspective", 
-    lens_brief="What breaks at scale? Cost overruns, latency issues, context pollution in high-throughput systems. Find concrete numbers, case studies, and what enterprises care about vs what prototypes show."
+    lens_brief="What breaks at scale? Cost overruns, latency issues, context pollution in high-throughput systems. Find concrete numbers, case studies, and what enterprises care about vs what prototypes show.",
+    research_context="User evaluating AI agent frameworks for production. Focus on what happens when moving from prototype to real scale—costs, performance, maintenance burden."
 )
 ```
+
+**research_context field**: Always include 1-2 sentences explaining the original research question and why this perspective matters. This helps researchers understand the bigger picture.
 
 **CRITICAL: Execution is synchronous**:
 - Researchers complete before `launch_researcher` returns

@@ -17,7 +17,7 @@ from src.supervisor.schemas import ResearchAssignment
 # State updates are merged using reducers (merge_str_dict, merge_int_dict, keep_first_str)
 @tool
 async def launch_researcher(runtime: ToolRuntime, assignment: ResearchAssignment) -> Command:
-    """Start a researcher on a dimension. Pass ResearchAssignment with dimension_key, workspace_path, lens_title, lens_brief."""
+    """Start a researcher on a dimension. Pass ResearchAssignment with dimension_key, workspace_path, lens_title, lens_brief, research_context."""
     # Use provided dimension key and workspace path directly
     dimension_key = assignment.dimension_key
     sandbox_path = assignment.workspace_path
@@ -31,11 +31,13 @@ async def launch_researcher(runtime: ToolRuntime, assignment: ResearchAssignment
         "context": {"sandbox_path": sandbox_path},
     }
 
-    # Send assignment-specific details (workflow is already in system prompt)
+    # Send assignment-specific details
     instruction = f"""### Your Research Assignment
 
-**Dimension**: {assignment.lens_title}
-**Lens**: {assignment.lens_brief}
+**Research Context**: {assignment.research_context}
+
+**Your Dimension**: {assignment.lens_title}
+**Your Lens**: {assignment.lens_brief}
 **Workspace**: {sandbox_path}
 **Dimension Key**: {dimension_key}
 
@@ -58,7 +60,7 @@ All files stay in your workspace. Follow the workflow in your system prompt.
 """
     initial_message = HumanMessage(content=instruction)
 
-    # Invoke subagent (async) with minimal error handling to avoid superstep rollback
+    # Invoke subagent with minimal error handling to avoid superstep rollback
     try:
         await research_agent_graph.ainvoke({"messages": [initial_message]}, config)
     except Exception as e:
