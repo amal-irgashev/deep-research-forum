@@ -62,11 +62,14 @@ Why: reading before writing prevents overwriting prior rounds and keeps findings
 **File 1: `findings.md`** (ALWAYS append, NEVER overwrite!)
 - **FIRST**: Call `read_file("findings.md")` to get existing content (if any)
 - **THEN**: Append a new section: `## Round N Findings` (use round number: 1, 2, or 3) with timestamp
-- Write 2-3 paragraphs summarizing THIS round's key findings:
-  * What claims/patterns/tensions you discovered
-  * Specific facts, dates, numbers, evidence
-  * Inline citations with FULL URLs: (https://example.com/article, 2025)
-- If this is a refinement round, explicitly address the moderator's prompt
+- Write **2-3 flowing paragraphs** summarizing THIS round's key findings:
+  * Open with your perspective/lens and what you're advocating for
+  * Present your key claims, patterns, and tensions with specific facts, dates, numbers
+  * Integrate inline citations naturally: (https://example.com/article, 2025)
+  * Address contradictions and caveats in your prose (don't create separate "Caveats" sections)
+  * End with what to explore next if called back
+- **Format as connected prose**, not bullet lists or structured sections with headers
+- If this is a refinement round, explicitly address the moderator's prompt in your opening
 - Keep it focused—you'll synthesize across all rounds later
 
 **File 2: `sources.json`**

@@ -79,7 +79,9 @@ All files stay in your workspace. Follow the workflow in your system prompt.
         "resume_counts": {subagent_thread_id: 0},                  # Initialize refinement counter
         "messages": [
             ToolMessage(
-                f"Launched researcher '{dimension_key}' → {subagent_thread_id}\nWorkspace: {sandbox_path}",
+                f"✓ Researcher '{dimension_key}' completed Round 1 → {subagent_thread_id}\n"
+                f"Workspace: {sandbox_path}\n"
+                f"Status: Initial findings written to findings.md",
                 tool_call_id=runtime.tool_call_id,
             )
         ],
@@ -150,7 +152,8 @@ async def resume_researcher(runtime: ToolRuntime, thread_id: str, refinement_ins
         "resume_counts": {thread_id: 1},  # merged additively by merge_int_dict
         "messages": [
             ToolMessage(
-                f"Resumed researcher '{dimension_key}' (thread {thread_id})",
+                f"✓ Researcher '{dimension_key}' completed Round {current_count + 2} → {thread_id}\n"
+                f"Status: Refinement findings appended to findings.md",
                 tool_call_id=runtime.tool_call_id,
             )
         ],
