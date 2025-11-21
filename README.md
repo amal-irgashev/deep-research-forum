@@ -4,8 +4,6 @@ A deep research system that works like a moderated forum. The Supervisor assigns
 
 The Supervisor reads all findings, spots tensions ("Agent A found success stories, but Agent B found abandonment patterns"), then asks subagents targeted follow-up questions. The final report synthesizes all perspectives into an unbiased view forced to account for contradictory evidence rather than cherry-picking. Bias reduction happens through **isolation** and **mandatory multi-perspective synthesis** (can't ignore conflicting findings).
 
-![Deep Research Forum Diagram](logo.png)
-
 ---
 
 ## Quick Start
